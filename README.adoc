@@ -1,0 +1,66 @@
+= Professionelle Softwareentwicklung: Praktische Übung 7
+:icons: font
+:icon-set: fa
+:experimental:
+:source-highlighter: rouge
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+:stem: latexmath
+endif::[]
+
+== Vorbereitung 
+
+Die Vorbereitungsarbeiten müssen Sie *vor der praktischen Übung* abschließen. 
+
+Wir erwarten von Ihnen, dass Sie ...
+
+* ein Headset o.ä. bereithalten. Testen Sie Ihr Audiosetup mit anderen Kommilitonen (z.B. Ihrer Gruppe) aus. Sie können dazu zum Beispiel https://test.bigbluebutton.org/ benutzen. 
+* eine IDE installiert haben und mit der Entwicklungsumgebung flüssig umgehen können.
+* verstanden haben, wie TDD funktioniert und es vorher selber praktisch ausprobiert haben (z.B. Bowling Kata von Wochenblatt 10).  
+* den Aufgabentext unten gelesen haben und sich schon einmal Gedanken zur Implementierung gemacht haben.
+
+== Ziele der Übung
+
+Das Lernziel der Aufgabe ist es, testgetriebene Entwicklung praktisch einzuüben.  
+
+== Ablauf der Übung
+
+. Schalten Sie *mindestens* das Mikrofon, aber besser auch die Kamera, ein 
+. Am Anfang gibt es eine kurze Vorstellungsrunde 
+. In der Gruppe wird kurz diskutiert, wie die Lösung angegangen werden soll und es werden noch offene Fragen geklärt
+. Es wird festgelegt, in welcher Reihenfolge die "Driver" Rolle übernommen wird
+. Die erste Person teilt Ihren Screen und übernimmt mithilfe von `mob` die Session
+. Es wird an der Problemstellung gemeinsam gearbeitet nach den Regeln des Mob Programmings 
+. Nach ca. der Hälfte der Zeit gibt es ein Feedback durch die Tutorin oder den Tutor
+. Es wird weiter an der Problemstellung gearbeitet
+. ca. 10 Minuten vor Ende der Session bekommen Sie Ihre Abschlussbewertung 
+
+== Aufgabe: DNA Transkription und Translation
+
+Wir wollen diese Woche *strikt testgetrieben* ein Programm schreiben, dass eine DNA Sequenz als Eingabe bekommt und *alle* daraus prinzipiell erzeugbaren Polypeptide ausgibt. Dabei wird zunächst die DNA Sequenz in eine RNA Sequenz übersetzt (Transkription) und dann die RNA Sequenz in Peptide übersetzt (Translation). 
+
+*Transkription*
+
+Eine DNA Sequenz besteht aus einer Folge von Aminosäuren, die als A, T, C, und G bezeichnet werden. Die Struktur der DNA besteht aus zwei miteinander verbundenen Strängen, die sich vor der Transkription aufteilen. Die Eingabesequenz beschreibt einen der beiden Stränge, der zweite Strang kann berechnet werden, indem der Eingabestrang umgedreht und folgende Ersetzung durchgeführt wird: A->T, T->A, C->G, G->C
+
+Aus der Eingabe `TTATGCATC` erhalten wir also zwei Sequenzen `TTATGCATC` (original) und `GATGCATAA`.
+
+Die beiden Stränge werden nun in RNA Sequenzen übersetzt. Eine RNA Sequenz besteht auch aus Aminosäuren, die mit A, U, C und G bezeichnet werden. Die Übersetzung erfolgt dabei in *umgekehrter* Reihenfolge und mit folgender Ersetzung A->U, T->A, C->G, G->C
+
+Unsere DNA Sequenz `TTATGCATC` würde also die RNA Sequenzen `GAUGCAUAA` und `UUAUGCAUC` erzeugen. 
+
+*Translation* 
+
+Bei der Translation werden je drei Aminosäuren (auch Codon genannt) in ein Peptid übersetzt. Die Übersetzung finden Sie im Code in der `Codon` Enumeration. Zum Beispiel wird das Codon `AAA` in Lysin (`LYS`) übersetzt. Es gibt bestimmte Codons (`UAA`,`UGA` und `UAG`), die das Ende einer Sequenz (`STOP`) markieren. Es kann sein, dass der Start eines Codons nicht am Anfang der Sequenz ist, wir müssen also bei der Übersetzung von z.B. `UUAUGCAUC` auch die Sequenzen beachten, die um eine oder zwei Aminosäuren verschoben sind, also `UAUGCAUC` und `AUGCAUC`. Gültige Sequenzen beginnen immer mit `MET` und enden mit `STOP`. 
+
+*Online Tool: Expasy*
+
+Auf der https://web.expasy.org/translate/[Expasy] Webseite können Sie die Übersetzung ausprobieren. Wenn Sie beispielsweise die DNA Sequenz `AGGACGGGCTAACTCCGCTCGTCACAAAGCGCAATGCAGCTATGGCAGATGTTCATGCCG` eingeben, dann erhalten Sie `MNICHSCIALCDERS` als gültige Sequenz. Die Übersetzung der Peptide in Buchstaben (also zum Beispiel wird `PHE` als `F` abgekürzt) finden Sie in der Enumeration `Peptid` in der Code-Vorlage.
+
+== Verhaltensregeln
+
+Wir erwarten von Ihnen einen respektvollen Umgang miteinander. Es gilt grundsätzlich bei uns der https://berlincodeofconduct.org/de/[Berlin Code of Conduct]. Die TutorInnen haben die Aufgabe, die Einhaltung der Regeln zu überwachen und können bei Verstößen gegen den Verhaltenskodex Personen aus der praktischen Übung entfernen.   
